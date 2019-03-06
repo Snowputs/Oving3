@@ -28,11 +28,24 @@ public class SocketKlient {
 
         /* Leser tekst fra kommandovinduet (brukeren) */
         String enLinje = leserFraKommandovindu.nextLine();
+        boolean flag = false;
         while (!enLinje.equals("")){
-            skriveren.println(enLinje); // sender teksten til tjeneren
+            if (!flag){
+                skriveren.println(enLinje); // sender teksten til tjeneren
+            }else{
+                flag = false;
+            }
             String respons = leseren.readLine(); // mottar respons fra tjeneren
             System.out.println(respons);
-            enLinje = leserFraKommandovindu.nextLine();
+            if(respons.charAt(0) == "S".charAt(0)){
+                respons = leseren.readLine(); // mottar respons fra tjeneren
+                System.out.println(respons);
+            }
+            if(respons.charAt(0) != "D".charAt(0)){
+                enLinje = leserFraKommandovindu.nextLine();
+            }else{
+                flag = true;
+            }
         }
 
         /* Lukker forbindelsen */
